@@ -1,7 +1,6 @@
-package ru.vaganov.bug2code_core;
+package ru.vaganov.bug2code_core.api;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -9,29 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vaganov.bug2code_core.ai.OpenRouterService;
+import ru.vaganov.bug2code_core.ai.CodeGenerationService;
 import ru.vaganov.bug2code_core.ai.prompt.PromptProvider;
-import ru.vaganov.bug2code_core.cache.SourceCodeExamplesProvider;
 
 @RestController
 @Component
 @RequiredArgsConstructor
 @RequestMapping("/")
 public class Controller {
-    @Value("${spring.ai.openai.api-key}")
-    private String apiKey;
-    @Value("${spring.ai.openai.base-url}")
-    private String apiUrl;
-    @Value("${spring.ai.openai.chat.options.model}")
-    private String modelName;
-
-    private final OpenRouterService openRouterService;
-    private final SourceCodeExamplesProvider codeExamplesProvider;
+    private final CodeGenerationService codeGenerationService;
     private final PromptProvider promptProvider;
 
-    @GetMapping("openrouter")
-    public ResponseEntity<String> getResponse(@RequestParam String prompt) {
-        var result = openRouterService.callOpenRouter(prompt);
+    @GetMapping("generateAICode")
+    public ResponseEntity<String> getResponse(@RequestParam String userTask) {
+        var result = codeGenerationService.generateCode(userTask);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

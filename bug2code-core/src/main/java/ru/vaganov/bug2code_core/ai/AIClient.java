@@ -1,6 +1,7 @@
 package ru.vaganov.bug2code_core.ai;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Component
-public class OpenRouterService {
+public class AIClient {
 
     @Value("${spring.ai.openai.api-key}")
     private String apiKey;
@@ -22,7 +23,7 @@ public class OpenRouterService {
     @Value("${spring.ai.openai.chat.options.model}")
     private String modelName;
 
-    public String callOpenRouter(String prompt) {
+    public String call(String prompt) {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -42,6 +43,7 @@ public class OpenRouterService {
         String requestBody = null;
         try {
             requestBody = objectMapper.writeValueAsString(requestDto);
+
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -55,6 +57,26 @@ public class OpenRouterService {
                 String.class
         );
 
-        return response.getBody();
+        return parseResponse(response.getBody());
+    }
+
+    private String parseResponse(String jsonString) {
+        try {
+            var objectMapper = new ObjectMapper();
+            JsonNode root = objectMapper.readTree(jsonString);
+
+            JsonNode choices = root.path("choices");
+            if (!choices.isArray() || choices.isEmpty()) {
+                return null;
+            }
+
+            JsonNode message = choices.get(0).path("message");
+            JsonNode content = message.path("content");
+
+            return content.isMissingNode() ? null : content.asText();
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
