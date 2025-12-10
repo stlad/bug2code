@@ -4,11 +4,13 @@ server:
 spring:
   profiles:
     active: secure
-
-openrouter:
-  api:
-    key: "apikey"
-    url: "url"
+  ai:
+    openai:
+      api-key: "apikey"
+      base-url: "url"
+      chat:
+        options:
+          model: "model"
 
 springdoc:
   show-actuator: false

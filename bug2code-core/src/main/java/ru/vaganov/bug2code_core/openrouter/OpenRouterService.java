@@ -15,11 +15,11 @@ import java.util.List;
 @Component
 public class OpenRouterService {
 
-    @Value("${openrouter.api.key}")
+    @Value("${spring.ai.openai.api-key}")
     private String apiKey;
-    @Value("${openrouter.api.url}")
-    private String apiUrl;
-    @Value("${openrouter.api.model}")
+    @Value("${spring.ai.openai.base-url}")
+    private String baseUrl;
+    @Value("${spring.ai.openai.chat.options.model}")
     private String modelName;
 
     public String callOpenRouter(String prompt) {
@@ -49,7 +49,7 @@ public class OpenRouterService {
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                modelName,
+                baseUrl,
                 HttpMethod.POST,
                 entity,
                 String.class
