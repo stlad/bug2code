@@ -1,4 +1,4 @@
-package ru.vaganov.bug2code_core.api;
+package ru.vaganov.bug2code_server.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,13 +19,13 @@ public class Controller {
     private final CodeGenerationService codeGenerationService;
     private final PromptProvider promptProvider;
 
-    @GetMapping("generateAICode")
+    @GetMapping("generate-ai-code")
     public ResponseEntity<String> getResponse(@RequestParam String userTask) {
         var result = codeGenerationService.generateCode(userTask);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("code")
+    @GetMapping("get-prompt")
     public ResponseEntity<String> getPrompt(@RequestParam String userTask) {
         var result = promptProvider.generatePrompt(userTask);
         return new ResponseEntity<>(result, HttpStatus.OK);
