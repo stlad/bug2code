@@ -22,7 +22,7 @@ public class SourceCodeExamplesProvider {
      *
      * @return объединенная строка со всеми текстами
      */
-    public String mergeAllTextFiles() {
+    public String getCodeExamples() {
         // Ищем все txt файлы в папке resources/cache
         Resource[] resources = null;
         try {

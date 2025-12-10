@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vaganov.bug2code_core.ai.OpenRouterService;
+import ru.vaganov.bug2code_core.ai.prompt.PromptProvider;
 import ru.vaganov.bug2code_core.cache.SourceCodeExamplesProvider;
 
 @RestController
@@ -26,6 +27,7 @@ public class Controller {
 
     private final OpenRouterService openRouterService;
     private final SourceCodeExamplesProvider codeExamplesProvider;
+    private final PromptProvider promptProvider;
 
     @GetMapping("openrouter")
     public ResponseEntity<String> getResponse(@RequestParam String prompt) {
@@ -34,8 +36,8 @@ public class Controller {
     }
 
     @GetMapping("code")
-    public ResponseEntity<String> getResponse() {
-        var result = codeExamplesProvider.mergeAllTextFiles();
+    public ResponseEntity<String> getPrompt(@RequestParam String userTask) {
+        var result = promptProvider.generatePrompt(userTask);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
