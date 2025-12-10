@@ -8,8 +8,8 @@ import org.telegram.telegrambots.starter.TelegramBotStarterConfiguration;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-		"ru.vaganov.bug2code_server",              // текущий проект
-		"ru.vaganov.bug2code_core"    // внешний проект
+		"ru.vaganov.bug2code_server",
+		"ru.vaganov.bug2code_core"
 })
 @Import(TelegramBotStarterConfiguration.class)
 public class Bug2codeServerApplication {
