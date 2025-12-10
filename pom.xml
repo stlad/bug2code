@@ -19,5 +19,6 @@
     <modules>
         <module>bug2code-core</module>
         <module>bug2core-testframework</module>
+        <module>bug2code-server</module>
     </modules>
 </project>
