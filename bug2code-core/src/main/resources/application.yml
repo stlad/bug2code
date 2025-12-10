@@ -1,3 +1,17 @@
+server:
+  port: 8080
+
 spring:
   profiles:
     active: secure
+
+openrouter:
+  api:
+    key: "apikey"
+    url: "url"
+
+springdoc:
+  show-actuator: false
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
