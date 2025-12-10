@@ -1,4 +1,4 @@
-package ru.vaganov.bug2code_core.openrouter;
+package ru.vaganov.bug2code_core.ai;
 
 import lombok.Builder;
 import lombok.Getter;

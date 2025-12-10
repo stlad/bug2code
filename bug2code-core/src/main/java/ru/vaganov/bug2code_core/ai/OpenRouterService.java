@@ -1,4 +1,4 @@
-package ru.vaganov.bug2code_core.openrouter;
+package ru.vaganov.bug2code_core.ai;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
