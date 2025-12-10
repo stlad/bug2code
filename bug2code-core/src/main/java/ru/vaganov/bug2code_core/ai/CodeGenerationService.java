@@ -19,4 +19,8 @@ public class CodeGenerationService {
         var result = aiClient.call(prompt);
         return result;
     }
+
+    public String getPromptByTask(String userTask) {
+        return promptProvider.generatePrompt(userTask);
+    }
 }

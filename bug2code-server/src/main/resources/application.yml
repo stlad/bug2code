@@ -6,11 +6,16 @@ spring:
     active: secure
   ai:
     openai:
-      api-key: "apikey"
-      base-url: "url"
+      api-key: ${AI_API_KEY:aiapikey}
+      base-url: ${AI_API_URL:aiapiurl}
       chat:
         options:
-          model: "model"
+          model: ${AI_MODEL:aimodel}
+
+telegram:
+  token: ${TELEGRAM_TOKEN:telegram_token}
+  name: ${TELEGRAM_BOT_NAME:telegram_name}
+
 
 springdoc:
   show-actuator: false

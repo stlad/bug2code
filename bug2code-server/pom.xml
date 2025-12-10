@@ -40,6 +40,11 @@
             <artifactId>bug2code-core</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-spring-boot-starter</artifactId>
+            <version>6.7.0</version>
+        </dependency>
     </dependencies>
 
     <build>
